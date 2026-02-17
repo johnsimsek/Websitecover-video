@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inky Vibes Tattoo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+html,body{
+  height:100%;
+  margin:0;
+  background:#000;
+  font-family:'Montserrat',Arial,Helvetica,sans-serif;
+}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  height:100svh;
+  width:100%;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+/* video */
+video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+
+/* dark overlay */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:1;
+}
+
+/* center content */
+.center{
+  position:relative;
+  z-index:2;
+  opacity:0;
+  animation:fadeIn 1.2s ease forwards;
+  padding:0 16px;
+}
+
+/* title */
+.title{
+  color:white;
+  font-weight:800;
+  font-size:clamp(28px,6vw,64px);
+  letter-spacing:.22em;
+  margin-bottom:28px;
+  text-shadow:
+    0 0 8px rgba(255,255,255,.35),
+    0 0 20px rgba(255,255,255,.12);
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  display:inline-block;
+  padding:14px 36px;
+  border:2px solid white;
+  color:white;
+  text-decoration:none;
+  letter-spacing:.22em;
+  font-size:12px;
+  border-radius:12px;
+  background:rgba(0,0,0,.25);
+  backdrop-filter:blur(6px);
+  transition:.3s;
+  
+  /* ✅ soft pulse */
+  animation:pulse 2.8s ease-in-out infinite;
+}
+
+.btn:hover{
+  background:white;
+  color:black;
+  box-shadow:0 0 18px rgba(255,255,255,.6);
+  animation:none; /* stop pulse on hover */
+}
+
+/* pulse animation */
+@keyframes pulse{
+  0%{
+    box-shadow:0 0 0 0 rgba(255,255,255,.35);
+  }
+  50%{
+    box-shadow:0 0 18px 6px rgba(255,255,255,.18);
+  }
+  100%{
+    box-shadow:0 0 0 0 rgba(255,255,255,.35);
+  }
+}
+
+/* fade in */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+  <video id="v"
+    autoplay muted playsinline
+    preload="auto"
+    disablepictureinpicture
+    poster="poster.jpg">
+    <source src="video.mp4" type="video/mp4">
+  </video>
+
+  <div class="center">
+    <div class="title">INKY VIBES TATTOO</div>
+
+    <a class="btn"
+      href="https://form.jotform.com/Tattoo_inkyvibestattoo/Ajanvaraus"
+      target="_blank" rel="noreferrer">
+      VARAA AIKA NYT
+    </a>
+  </div>
+
+</div>
+
+<script>
+const v = document.getElementById("v");
+const LOOP_AT = 15;
+const EPS = 0.12;
+
+function tryPlay(){
+  const p = v.play();
+  if (p && typeof p.catch === "function") p.catch(()=>{});
+}
+
+window.addEventListener("load", tryPlay);
+document.addEventListener("touchstart", tryPlay, { once:true });
+document.addEventListener("click", tryPlay, { once:true });
+
+v.addEventListener("timeupdate", () => {
+  if (v.currentTime >= (LOOP_AT - EPS)) {
+    v.currentTime = 0;
+    tryPlay();
+  }
+});
+</script>
+
+</body>
+</html>
