@@ -57,12 +57,11 @@ video{
 
 /* title */
 .title{
-  color:rgba(255, 255, 255, 0.45); /* Low opacity for less visibility */
+  color:rgba(255, 255, 255, 0.45); 
   font-weight:800;
   font-size:clamp(28px,6vw,64px);
   letter-spacing:.22em;
   margin-bottom:28px;
-  /* Added a soft, slightly wider glow behind the text */
   text-shadow:
     0 0 12px rgba(255,255,255,.25), 
     0 0 35px rgba(255,255,255,.15); 
@@ -71,7 +70,7 @@ video{
 /* ===== BUTTON ===== */
 .btn{
   display:inline-block;
-  padding:10px 16px; /* Less wide */
+  padding:10px 16px; 
   border:2px solid white;
   color:white;
   text-decoration:none;
@@ -90,7 +89,7 @@ video{
   background:white;
   color:black;
   box-shadow:0 0 18px rgba(255,255,255,.6);
-  animation:none; /* stop pulse on hover */
+  animation:none; 
 }
 
 /* pulse animation */
@@ -129,9 +128,8 @@ video{
   <div class="center">
     <div class="title">INKY VIBES TATTOO</div>
 
-    <a class="btn"
-      href="https://ajanvaraus.inkyvibestattoo.com"
-      target="_blank" rel="noreferrer">
+    <!-- Added target="_top" so it breaks out of the iframe and loads in the main tab -->
+    <a class="btn" href="https://ajanvaraus.inkyvibestattoo.com" target="_top">
       VARAA AIKA NYT
     </a>
   </div>
@@ -140,7 +138,7 @@ video{
 
 <script>
 const v = document.getElementById("v");
-const LOOP_AT = 20; /* Updated to loop at 20 seconds */
+const LOOP_AT = 20; 
 const EPS = 0.12;
 
 function tryPlay(){
