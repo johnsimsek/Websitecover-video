@@ -57,31 +57,31 @@ video{
 
 /* title */
 .title{
-  color:white;
+  color:rgba(255, 255, 255, 0.45); /* Lowered opacity for less visibility */
   font-weight:800;
   font-size:clamp(28px,6vw,64px);
   letter-spacing:.22em;
   margin-bottom:28px;
   text-shadow:
-    0 0 8px rgba(255,255,255,.35),
-    0 0 20px rgba(255,255,255,.12);
+    0 0 8px rgba(255,255,255,.15), /* Softened the glow */
+    0 0 20px rgba(255,255,255,.05);
 }
 
 /* ===== BUTTON ===== */
 .btn{
   display:inline-block;
-  padding:10px 24px; /* Reduced padding to make the button smaller */
+  padding:10px 16px; /* Reduced side padding to make the button less wide */
   border:2px solid white;
   color:white;
   text-decoration:none;
   letter-spacing:.22em;
-  font-size:11px; /* Slightly reduced font size */
-  border-radius:10px; /* Slightly reduced border radius to match new size */
+  font-size:11px;
+  border-radius:10px;
   background:rgba(0,0,0,.25);
   backdrop-filter:blur(6px);
   transition:.3s;
   
-  /* ✅ soft pulse */
+  /* soft pulse */
   animation:pulse 2.8s ease-in-out infinite;
 }
 
