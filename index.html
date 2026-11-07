@@ -57,20 +57,21 @@ video{
 
 /* title */
 .title{
-  color:rgba(255, 255, 255, 0.45); /* Lowered opacity for less visibility */
+  color:rgba(255, 255, 255, 0.45); /* Low opacity for less visibility */
   font-weight:800;
   font-size:clamp(28px,6vw,64px);
   letter-spacing:.22em;
   margin-bottom:28px;
+  /* Added a soft, slightly wider glow behind the text */
   text-shadow:
-    0 0 8px rgba(255,255,255,.15), /* Softened the glow */
-    0 0 20px rgba(255,255,255,.05);
+    0 0 12px rgba(255,255,255,.25), 
+    0 0 35px rgba(255,255,255,.15); 
 }
 
 /* ===== BUTTON ===== */
 .btn{
   display:inline-block;
-  padding:10px 16px; /* Reduced side padding to make the button less wide */
+  padding:10px 16px; /* Less wide */
   border:2px solid white;
   color:white;
   text-decoration:none;
