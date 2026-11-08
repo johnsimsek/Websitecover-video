@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="fi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -80,6 +80,7 @@ video{
   background:rgba(0,0,0,.25);
   backdrop-filter:blur(6px);
   transition:.3s;
+  cursor:pointer;
   
   /* soft pulse */
   animation:pulse 2.8s ease-in-out infinite;
@@ -128,8 +129,8 @@ video{
   <div class="center">
     <div class="title">INKY VIBES TATTOO</div>
 
-    <!-- Added target="_top" so it breaks out of the iframe and loads in the main tab -->
-    <a class="btn" href="https://ajanvaraus.inkyvibestattoo.com" target="_top">
+    <!-- Booking Button with Session Handler -->
+    <a class="btn" id="booking-btn" href="https://ajanvaraus.inkyvibestattoo.com/" onclick="handleBookingClick(event)">
       VARAA AIKA NYT
     </a>
   </div>
@@ -141,12 +142,21 @@ const v = document.getElementById("v");
 const LOOP_AT = 20; 
 const EPS = 0.12;
 
+let iframeUser = null;
+
 function tryPlay(){
   const p = v.play();
   if (p && typeof p.catch === "function") p.catch(()=>{});
 }
 
-window.addEventListener("load", tryPlay);
+window.addEventListener("load", () => {
+    tryPlay();
+    // Ask parent page for login state on load
+    if (window.parent !== window) {
+        window.parent.postMessage({ action: "checkLoginState" }, "*");
+    }
+});
+
 document.addEventListener("touchstart", tryPlay, { once:true });
 document.addEventListener("click", tryPlay, { once:true });
 
@@ -156,6 +166,28 @@ v.addEventListener("timeupdate", () => {
     tryPlay();
   }
 });
+
+// Listen for login state updates from the main page
+window.addEventListener("message", function(event) {
+    const data = event.data;
+    if (data && data.action === "updateLoginState") {
+        iframeUser = data.user;
+    }
+});
+
+// Handle click on "VARAA AIKA NYT" to pass session parameter if logged in
+function handleBookingClick(e) {
+    e.preventDefault();
+    let targetUrl = "https://ajanvaraus.inkyvibestattoo.com/";
+
+    if (iframeUser) {
+        const encodedUser = encodeURIComponent(JSON.stringify(iframeUser));
+        targetUrl += "?session=" + encodedUser;
+    }
+
+    // Break out of iframe and load in main window top tab
+    window.top.location.href = targetUrl;
+}
 </script>
 
 </body>
