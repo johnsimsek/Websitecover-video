@@ -118,8 +118,9 @@ video{
 
 <div class="hero">
 
+  <!-- VİDEO KISMINA "loop" EKLENDİ -->
   <video id="v"
-    autoplay muted playsinline
+    autoplay muted playsinline loop
     preload="auto"
     disablepictureinpicture
     poster="poster.jpg">
@@ -139,8 +140,6 @@ video{
 
 <script>
 const v = document.getElementById("v");
-const LOOP_AT = 20; 
-const EPS = 0.12;
 
 let iframeUser = null;
 
@@ -159,13 +158,6 @@ window.addEventListener("load", () => {
 
 document.addEventListener("touchstart", tryPlay, { once:true });
 document.addEventListener("click", tryPlay, { once:true });
-
-v.addEventListener("timeupdate", () => {
-  if (v.currentTime >= (LOOP_AT - EPS)) {
-    v.currentTime = 0;
-    tryPlay();
-  }
-});
 
 // Listen for login state updates from the main page
 window.addEventListener("message", function(event) {
